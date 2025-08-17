@@ -1,24 +1,24 @@
-## EX. NO: 1 : IMPLEMENTATION OF CAESAR CIPHER
+## EX.NO - 1 : IMPLEMENTATION OF CAESAR CIPHER
  
 
-## AIM:
+## AIM :
 
 To implement the simple substitution technique named Caesar cipher using C language.
 
-## DESCRIPTION:
+## DESCRIPTION :
 
 To encrypt a message with a Caesar cipher, each letter in the message is changed using a simple rule: shift by three. Each letter is replaced by the letter three letters ahead in the alphabet. A becomes D, B becomes E, and so on. For the last letters, we can think of the
 alphabet as a circle and "wrap around". W becomes Z, X becomes A, Y bec mes B, and Z
 becomes C. To change a message back, each letter is replaced by the one three before it.
 
-## EXAMPLE:
+## EXAMPLE :
 
 
 
 ![image](https://github.com/Hemamanigandan/CNS/assets/149653568/eb9c6c43-8c80-4cdd-b9d4-91705a311c79)
 
 
-## ALGORITHM:
+## ALGORITHM :
 
 ### STEP-1: Read the plain text from the user.
 ### STEP-2: Read the key value from the user.
@@ -27,8 +27,60 @@ becomes C. To change a message back, each letter is replaced by the one three be
 ### STEP-5: Display the cipher text obtained above.
 
 
-PROGRAM :-
+## PROGRAM :
+
+```
+#include <stdio.h>
+#include <stdlib.h>
+
+// Function to perform Caesar Cipher encryption
+void caesarEncrypt(char *text, int key) {
+    for (int i = 0; text[i] != '\0'; i++) {
+        char c = text[i];
+        // Check if the character is an uppercase letter
+        if (c >= 'A' && c <= 'Z') {
+            text[i] = ((c - 'A' + key) % 26 + 26) % 26 + 'A';
+        }
+        // Check if the character is a lowercase letter
+        else if (c >= 'a' && c <= 'z') {
+            text[i] = ((c - 'a' + key) % 26 + 26) % 26 + 'a';
+        }
+        // Ignore non-alphabetic characters
+    }
+}
+
+// Function to perform Caesar Cipher decryption
+void caesarDecrypt(char *text, int key) {
+    // Decryption is the same as encryption with a negative key
+    caesarEncrypt(text, -key);
+}
+
+int main() {
+    char message[100]; // Declare a character array to store the message
+    int key;
+
+    printf("Enter the message to encrypt: ");
+    fgets(message, sizeof(message), stdin); // Read input from the user
+    printf("Enter the Caesar Cipher key (an integer): ");
+    scanf("%d", &key); // Read the key from the user
+
+    // Encrypt the message using the Caesar Cipher
+    caesarEncrypt(message, key);
+    printf("Encrypted Message: %s", message);
+
+    // Decrypt the message back to the original
+    caesarDecrypt(message, key);
+    printf("Decrypted Message: %s", message);
+    
+    return 0;
+}
+```
+
+## OUTPUT :
+
+![EX-1](https://github.com/user-attachments/assets/ce554c04-00c5-426d-a6df-a72050528611)
 
 
+## RESULT :
 
-OUTPUT :-
+Thus we have implemented the simple substitution technique named Caesar cipher using C language.
