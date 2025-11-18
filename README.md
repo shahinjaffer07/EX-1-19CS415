@@ -31,49 +31,35 @@ becomes C. To change a message back, each letter is replaced by the one three be
 
 ```
 #include <stdio.h>
-#include <stdlib.h>
 
-// Function to perform Caesar Cipher encryption
-void caesarEncrypt(char *text, int key) {
-    for (int i = 0; text[i] != '\0'; i++) {
+void caesar(char *text, int key) {
+    for (int i = 0; text[i]; i++) {
         char c = text[i];
-        // Check if the character is an uppercase letter
-        if (c >= 'A' && c <= 'Z') {
-            text[i] = ((c - 'A' + key) % 26 + 26) % 26 + 'A';
-        }
-        // Check if the character is a lowercase letter
-        else if (c >= 'a' && c <= 'z') {
-            text[i] = ((c - 'a' + key) % 26 + 26) % 26 + 'a';
-        }
-        // Ignore non-alphabetic characters
+        if (c >= 'A' && c <= 'Z')
+            text[i] = (c - 'A' + key + 26) % 26 + 'A';
+        else if (c >= 'a' && c <= 'z')
+            text[i] = (c - 'a' + key + 26) % 26 + 'a';
     }
 }
 
-// Function to perform Caesar Cipher decryption
-void caesarDecrypt(char *text, int key) {
-    // Decryption is the same as encryption with a negative key
-    caesarEncrypt(text, -key);
-}
-
 int main() {
-    char message[100]; // Declare a character array to store the message
+    char msg[100];
     int key;
 
-    printf("Enter the message to encrypt: ");
-    fgets(message, sizeof(message), stdin); // Read input from the user
-    printf("Enter the Caesar Cipher key (an integer): ");
-    scanf("%d", &key); // Read the key from the user
+    printf("Enter message: ");
+    fgets(msg, 100, stdin);
+    printf("Enter key: ");
+    scanf("%d", &key);
 
-    // Encrypt the message using the Caesar Cipher
-    caesarEncrypt(message, key);
-    printf("Encrypted Message: %s", message);
+    caesar(msg, key);
+    printf("Encrypted: %s", msg);
 
-    // Decrypt the message back to the original
-    caesarDecrypt(message, key);
-    printf("Decrypted Message: %s", message);
-    
+    caesar(msg, -key);
+    printf("Decrypted: %s", msg);
+
     return 0;
 }
+
 ```
 
 ## OUTPUT :
